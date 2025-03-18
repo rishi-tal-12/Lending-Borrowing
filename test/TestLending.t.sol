@@ -10,7 +10,7 @@ contract  TestLending is Test{
 
 function setUp() public{
     lending =new Lending();  
- }
+}
 
  function testdeployment()public{
 assertEq(lending.gettokensupply(lending.gettoken1()),1000000 ether);

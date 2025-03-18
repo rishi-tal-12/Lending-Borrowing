@@ -20,7 +20,6 @@ contract Lending{
     uint256 s_totalinterestwinnings;
 
 mapping (address=>uint256) private s_tokensupplychange;
-mapping (address=>uint256) public fractionofdepositer;
 mapping(address=>uint256) public interestofborrower;
 mapping(address => uint256) public collateraldepositedvalue;
 mapping(address=> uint256) public borrowedtokenamountvalue;
@@ -103,16 +102,12 @@ uint256 constant BONUS =0.1 ether;
   }
 
     function deposit (address token, uint256 amount)external{
-                if(token != address(token1)){
-                revert Not_correcttoken();
+    if(token != address(token1)){
+    revert Not_correcttoken();
     }
-                s_tokensupplychange[address(token1)]+=amount;
-                fractionofdepositer[msg.sender]=(amount)/s_tokensupplychange[address(token1)];
+    s_tokensupplychange[address(token1)]+=amount;
     }
 
-    function withdrawofdepositer()external view  returns(uint256){
-            return   (s_totalinterestwinnings)* (fractionofdepositer[msg.sender]);
-    }
 
     function updatepriceoftoken1(uint256 newprice)external onlyowner{
         tokenprice1=newprice;
@@ -125,7 +120,9 @@ uint256 constant BONUS =0.1 ether;
     function gettoken1price() external view returns(uint256){
     return tokenprice1;
   }
-
+  function gettotalinterestwinnings()external view returns(uint256){
+    return s_totalinterestwinnings;
+  }
     function gettoken2price() external view returns(uint256){
     return tokenprice2;
   }
